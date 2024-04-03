@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const chatRoutes_1 = __importDefault(require("./routes/chatRoutes")); // Import chatRoutes
 const errorMiddleware_1 = __importDefault(require("./middleware/errorMiddleware"));
 const db_1 = __importDefault(require("./db"));
 dotenv_1.default.config();
@@ -15,6 +16,7 @@ const port = process.env.PORT || 5029;
 app.use(express_1.default.json());
 // Routes
 app.use('/api/auth', authRoutes_1.default);
+app.use('/api/chats', chatRoutes_1.default); // Add chatRoutes
 // Error middleware
 app.use(errorMiddleware_1.default);
 // Connect to MySQL and start the server

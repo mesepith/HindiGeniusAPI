@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
+import chatRoutes from './routes/chatRoutes'; // Import chatRoutes
 import errorMiddleware from './middleware/errorMiddleware';
 import db from './db';
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/chats', chatRoutes); // Add chatRoutes
 
 // Error middleware
 app.use(errorMiddleware);
