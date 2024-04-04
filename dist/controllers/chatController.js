@@ -4,12 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchMessages = exports.sendMessage = void 0;
+const Chat_1 = require("../models/Chat");
 const ChatService_1 = __importDefault(require("../services/ChatService"));
 const sendMessage = async (req, res) => {
     try {
         const { userId, message } = req.body;
         const response = await ChatService_1.default.getMessageResponse(message);
-        await ChatService_1.default.storeMessage(userId, message, response);
+        const chat = new Chat_1.Chat({ user_id: userId, message, response });
+        await chat.save();
         res.status(200).json({ success: true, response });
     }
     catch (error) {
@@ -21,7 +23,7 @@ exports.sendMessage = sendMessage;
 const fetchMessages = async (req, res) => {
     try {
         const { userId } = req.params;
-        const messages = await ChatService_1.default.fetchMessages(parseInt(userId));
+        const messages = await Chat_1.Chat.fetchMessages(parseInt(userId));
         res.status(200).json({ success: true, messages });
     }
     catch (error) {

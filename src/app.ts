@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import chatRoutes from './routes/chatRoutes'; // Import chatRoutes
 import errorMiddleware from './middleware/errorMiddleware';
-import db from './db';
+import db from './config/db';
 
 dotenv.config();
 

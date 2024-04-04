@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const chatRoutes_1 = __importDefault(require("./routes/chatRoutes")); // Import chatRoutes
 const errorMiddleware_1 = __importDefault(require("./middleware/errorMiddleware"));
-const db_1 = __importDefault(require("./db"));
+const db_1 = __importDefault(require("./config/db"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5029;
