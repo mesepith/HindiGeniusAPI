@@ -5,14 +5,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerWithGoogle = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const User_1 = require("../models/User");
+const User_1 = require("../entity/User");
+const app_1 = __importDefault(require("../app")); // Import the dataSource instance
 const registerWithGoogle = async (req, res) => {
     try {
         const { name, email, google_user_id } = req.body;
-        let user = await User_1.User.findByEmail(email);
+        // console.log('email: ', email);
+        const userRepository = app_1.default.getRepository(User_1.User);
+        // Use createQueryBuilder to build the query
+        const queryBuilder = userRepository.createQueryBuilder('users')
+            .where('users.email = :email', { email });
+        // Get the generated SQL query
+        // const sql = queryBuilder.getSql();
+        // Log the SQL query
+        // console.log('Generated SQL:', sql);
+        // Execute the query
+        let user = await queryBuilder.getOne();
+        // console.log('user: ', user);
         if (!user) {
-            user = new User_1.User({ name, email, google_user_id });
-            await user.save();
+            user = new User_1.User();
+            user.name = name;
+            user.email = email;
+            user.google_user_id = google_user_id;
+            await userRepository.save(user);
         }
         const token = jsonwebtoken_1.default.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.status(201).json({ success: true, user, token });
