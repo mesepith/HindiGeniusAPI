@@ -13,7 +13,7 @@ const ChatService = {
         try {
             const response = await axios_1.default.post('https://api.openai.com/v1/chat/completions', {
                 model: 'gpt-3.5-turbo-0125',
-                messages: [{ role: "user", content: `Translate to Hindi: ${message}` }],
+                messages: [{ role: "user", content: `${message}, write answer in hindi` }],
                 temperature: 0.7,
             }, {
                 headers: {
