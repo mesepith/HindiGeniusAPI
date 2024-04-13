@@ -9,6 +9,8 @@ const chatController_1 = require("../controllers/chatController");
 const authMiddleware_1 = require("../middleware/authMiddleware");
 const router = express_1.default.Router();
 router.post('/send', authMiddleware_1.authenticate, chatController_1.sendMessage);
-router.get('/:userId', authMiddleware_1.authenticate, chatController_1.fetchMessages);
+router.get('/:userId/:sessionId', authMiddleware_1.authenticate, chatController_1.fetchMessages);
+// New route for starting a new chat session
+router.get('/start-new-session', authMiddleware_1.authenticate, chatController_1.startNewChatSession);
 exports.default = router;
 //# sourceMappingURL=chatRoutes.js.map

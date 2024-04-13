@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Chat = void 0;
+// src/entity/Chat.ts
 const typeorm_1 = require("typeorm");
 const User_1 = require("./User");
 let Chat = class Chat {
@@ -23,6 +24,10 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => User_1.User),
     __metadata("design:type", User_1.User)
 ], Chat.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { name: 'session_id' }),
+    __metadata("design:type", String)
+], Chat.prototype, "sessionId", void 0);
 __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
@@ -43,6 +48,26 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'boolean', default: true }),
     __metadata("design:type", Boolean)
 ], Chat.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)('varchar', { name: 'service_by', nullable: true }),
+    __metadata("design:type", String)
+], Chat.prototype, "serviceBy", void 0);
+__decorate([
+    (0, typeorm_1.Column)('varchar', { name: 'ai_model', nullable: true }),
+    __metadata("design:type", String)
+], Chat.prototype, "aiModel", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int', { name: 'prompt_tokens', nullable: true }),
+    __metadata("design:type", Number)
+], Chat.prototype, "promptTokens", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int', { name: 'completion_tokens', nullable: true }),
+    __metadata("design:type", Number)
+], Chat.prototype, "completionTokens", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int', { name: 'total_tokens', nullable: true }),
+    __metadata("design:type", Number)
+], Chat.prototype, "totalTokens", void 0);
 exports.Chat = Chat = __decorate([
     (0, typeorm_1.Entity)('chats')
 ], Chat);
