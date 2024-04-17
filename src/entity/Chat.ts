@@ -42,4 +42,14 @@ export class Chat {
 
     @Column('int', { name: 'total_tokens', nullable: true })
     totalTokens: number;
+
+    // Use double precision for cost calculations
+    @Column('double', { nullable: true, name: 'total_input_cost' })
+    totalInputCost: number;
+
+    @Column('double', { nullable: true, name: 'total_output_cost' })
+    totalOutputCost: number;
+
+    @Column('double', { nullable: true, name: 'total_cost' })
+    totalCost: number;
 }

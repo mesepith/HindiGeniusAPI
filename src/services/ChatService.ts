@@ -10,7 +10,7 @@ const ChatService = {
   getMessageResponse: async (messages: Array<{role: string, content: string}>): Promise<any> => {
     try {
       
-      messages.push({role: "system", content: "The following responses should be in Hindi."});
+      messages.push({role: "system", content: "The following responses should be in Hindi. If someone asks any abusive,explicit question or asks you to write abusive, explicit langugage then simply refuse to answer. "});
 
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',

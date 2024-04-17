@@ -7,6 +7,7 @@ exports.startNewChatSession = exports.fetchMessages = exports.sendMessage = void
 const Chat_1 = require("../entity/Chat");
 const User_1 = require("../entity/User");
 const ChatService_1 = __importDefault(require("../services/ChatService"));
+const calculateAPICost_1 = require("../utils/calculateAPICost");
 const app_1 = __importDefault(require("../app"));
 const uuid_1 = require("uuid");
 const sendMessage = async (req, res) => {
@@ -35,6 +36,8 @@ const sendMessage = async (req, res) => {
         // Get AI response considering all previous messages and responses
         const result = await ChatService_1.default.getMessageResponse(messagesForAI);
         const { textResponse, promptTokens, completionTokens, totalTokens } = result;
+        const aiModel = 'gpt-3.5-turbo-0125';
+        const costDetails = (0, calculateAPICost_1.calculateAPICost)(aiModel, promptTokens, completionTokens);
         // Save the new chat message and AI response
         //const chat = chatRepository.create({ user, message, response, sessionId });
         const chat = chatRepository.create({
@@ -46,7 +49,10 @@ const sendMessage = async (req, res) => {
             completionTokens: completionTokens,
             totalTokens: totalTokens,
             serviceBy: 'OpenAI',
-            aiModel: 'gpt-3.5-turbo-0125'
+            aiModel: aiModel,
+            totalInputCost: parseFloat(costDetails.totalInputCost),
+            totalOutputCost: parseFloat(costDetails.totalOutputCost),
+            totalCost: parseFloat(costDetails.totalCost),
         });
         await chatRepository.save(chat);
         res.status(200).json({ success: true, response: textResponse, sessionId });

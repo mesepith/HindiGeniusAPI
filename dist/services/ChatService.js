@@ -11,7 +11,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const ChatService = {
     getMessageResponse: async (messages) => {
         try {
-            messages.push({ role: "system", content: "The following responses should be in Hindi." });
+            messages.push({ role: "system", content: "The following responses should be in Hindi. If someone asks any abusive,explicit question or asks you to write abusive, explicit langugage then simply refuse to answer. " });
             const response = await axios_1.default.post('https://api.openai.com/v1/chat/completions', {
                 model: 'gpt-3.5-turbo-0125',
                 messages: messages,

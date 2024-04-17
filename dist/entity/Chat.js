@@ -68,6 +68,18 @@ __decorate([
     (0, typeorm_1.Column)('int', { name: 'total_tokens', nullable: true }),
     __metadata("design:type", Number)
 ], Chat.prototype, "totalTokens", void 0);
+__decorate([
+    (0, typeorm_1.Column)('double', { nullable: true, name: 'total_input_cost' }),
+    __metadata("design:type", Number)
+], Chat.prototype, "totalInputCost", void 0);
+__decorate([
+    (0, typeorm_1.Column)('double', { nullable: true, name: 'total_output_cost' }),
+    __metadata("design:type", Number)
+], Chat.prototype, "totalOutputCost", void 0);
+__decorate([
+    (0, typeorm_1.Column)('double', { nullable: true, name: 'total_cost' }),
+    __metadata("design:type", Number)
+], Chat.prototype, "totalCost", void 0);
 exports.Chat = Chat = __decorate([
     (0, typeorm_1.Entity)('chats')
 ], Chat);

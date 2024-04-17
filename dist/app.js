@@ -21,6 +21,7 @@ const dataSource = new typeorm_1.DataSource({
     migrations: ['dist/migration/**/*.js'],
     subscribers: ['dist/subscriber/**/*.js'],
     synchronize: process.env.NODE_ENV !== 'production',
+    charset: 'utf8mb4',
     // logger: logger,
 });
 dataSource

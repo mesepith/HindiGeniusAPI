@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Chat } from '../entity/Chat';
 import { User } from '../entity/User';
 import ChatService from '../services/ChatService';
+import { calculateAPICost } from '../utils/calculateAPICost';
 import dataSource from '../app';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -36,6 +37,8 @@ export const sendMessage = async (req: Request, res: Response) => {
     // Get AI response considering all previous messages and responses
     const result = await ChatService.getMessageResponse(messagesForAI);
     const { textResponse, promptTokens, completionTokens, totalTokens } = result;
+    const aiModel = 'gpt-3.5-turbo-0125';
+    const costDetails = calculateAPICost(aiModel, promptTokens, completionTokens);
 
     // Save the new chat message and AI response
     //const chat = chatRepository.create({ user, message, response, sessionId });
@@ -48,7 +51,10 @@ export const sendMessage = async (req: Request, res: Response) => {
       completionTokens: completionTokens,
       totalTokens: totalTokens,
       serviceBy: 'OpenAI',
-      aiModel: 'gpt-3.5-turbo-0125'
+      aiModel: aiModel,
+      totalInputCost: parseFloat(costDetails.totalInputCost),
+      totalOutputCost: parseFloat(costDetails.totalOutputCost),
+      totalCost: parseFloat(costDetails.totalCost),
     });
 
     await chatRepository.save(chat);
