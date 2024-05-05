@@ -11,5 +11,6 @@ module.exports = {
   migrations: ['dist/migration/**/*.js'],
   subscribers: ['dist/subscriber/**/*.js'],
   synchronize: process.env.NODE_ENV !== 'production',
+  migrationsRun: process.env.NODE_ENV === 'production', // Automatically run migrations
 //   logging: true,
 };
