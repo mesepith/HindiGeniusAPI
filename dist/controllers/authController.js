@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerWithGoogle = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../entity/User");
-const app_1 = __importDefault(require("../app")); // Import the dataSource instance
+const data_source_1 = __importDefault(require("../data-source")); // Import the dataSource instance
 const registerWithGoogle = async (req, res) => {
     try {
         const { name, email, google_user_id } = req.body;
         // console.log('email: ', email);
-        const userRepository = app_1.default.getRepository(User_1.User);
+        const userRepository = data_source_1.default.getRepository(User_1.User);
         // Use createQueryBuilder to build the query
         const queryBuilder = userRepository.createQueryBuilder('users')
             .where('users.email = :email', { email });

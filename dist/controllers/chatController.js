@@ -8,18 +8,18 @@ const Chat_1 = require("../entity/Chat");
 const User_1 = require("../entity/User");
 const ChatService_1 = __importDefault(require("../services/ChatService"));
 const calculateAPICost_1 = require("../utils/calculateAPICost");
-const app_1 = __importDefault(require("../app"));
+const data_source_1 = __importDefault(require("../data-source"));
 const uuid_1 = require("uuid");
 const sendMessage = async (req, res) => {
     try {
         const { userId, sessionId, message } = req.body;
-        const userRepository = app_1.default.getRepository(User_1.User);
+        const userRepository = data_source_1.default.getRepository(User_1.User);
         const user = await userRepository.findOneBy({ id: parseInt(userId, 10) });
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
         // Fetch previous messages and responses in the same session
-        const chatRepository = app_1.default.getRepository(Chat_1.Chat);
+        const chatRepository = data_source_1.default.getRepository(Chat_1.Chat);
         const previousMessages = await chatRepository.find({
             where: { user: user, sessionId: sessionId },
             order: { created_at: 'ASC' }
@@ -66,7 +66,7 @@ exports.sendMessage = sendMessage;
 const fetchMessages = async (req, res) => {
     try {
         const { userId, sessionId } = req.params;
-        const chatRepository = app_1.default.getRepository(Chat_1.Chat);
+        const chatRepository = data_source_1.default.getRepository(Chat_1.Chat);
         const messages = await chatRepository.find({
             where: { user: { id: parseInt(userId, 10) }, sessionId },
             relations: ['user'],

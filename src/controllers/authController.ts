@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../entity/User';
-import dataSource from '../app'; // Import the dataSource instance
+import dataSource from '../data-source'; // Import the dataSource instance
 
 export const registerWithGoogle = async (req: Request, res: Response) => {
     

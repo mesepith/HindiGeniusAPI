@@ -3,7 +3,7 @@ import { Chat } from '../entity/Chat';
 import { User } from '../entity/User';
 import ChatService from '../services/ChatService';
 import { calculateAPICost } from '../utils/calculateAPICost';
-import dataSource from '../app';
+import dataSource from '../data-source';
 import { v4 as uuidv4 } from 'uuid';
 
 export const sendMessage = async (req: Request, res: Response) => {
