@@ -9,7 +9,7 @@
     "start": "node dist/app.js",
     "dev": "concurrently \"npm:watch\" \"nodemon dist/app.js\"",
     "prod": "NODE_ENV=production npm run build && npm run migrate && node dist/app.js",
-    "migrate": "typeorm migration:run"
+    "migrate": "typeorm migration:run -d dist/ormconfig.js"
   },
   "keywords": [],
   "author": "",
