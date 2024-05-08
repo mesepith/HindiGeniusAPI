@@ -8,6 +8,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
+        console.log('Authorization header missing by Zahir ');
         return res.status(401).json({ success: false, message: 'Authorization header missing' });
     }
     const token = authHeader.split(' ')[1];
@@ -17,7 +18,8 @@ const authenticate = (req, res, next) => {
         next();
     }
     catch (error) {
-        return res.status(403).json({ success: false, message: 'Invalid token' });
+        console.log('error inside authenticate() ', error);
+        return res.status(401).json({ success: false, message: 'Invalid token' });
     }
 };
 exports.authenticate = authenticate;

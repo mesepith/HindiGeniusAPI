@@ -6,6 +6,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
+    console.log('Authorization header missing by Zahir ');
     return res.status(401).json({ success: false, message: 'Authorization header missing' });
   }
 
@@ -16,6 +17,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     req.body.userId = decoded.userId;
     next();
   } catch (error) {
-    return res.status(403).json({ success: false, message: 'Invalid token' });
+    console.log('error inside authenticate() ', error);
+    return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 };
