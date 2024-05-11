@@ -8,8 +8,8 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../entity/User");
 const data_source_1 = __importDefault(require("../data-source")); // Import the dataSource instance
 const generateTokens = (userId) => {
-    const accessToken = jsonwebtoken_1.default.sign({ userId: userId }, process.env.JWT_SECRET, { expiresIn: '1m' });
-    const refreshToken = jsonwebtoken_1.default.sign({ userId: userId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '5m' });
+    const accessToken = jsonwebtoken_1.default.sign({ userId: userId }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const refreshToken = jsonwebtoken_1.default.sign({ userId: userId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '5d' });
     return { accessToken, refreshToken };
 };
 const registerWithGoogle = async (req, res) => {

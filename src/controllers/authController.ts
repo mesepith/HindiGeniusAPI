@@ -4,8 +4,8 @@ import { User } from '../entity/User';
 import dataSource from '../data-source'; // Import the dataSource instance
 
 const generateTokens = (userId: number) => {
-  const accessToken = jwt.sign({ userId: userId }, process.env.JWT_SECRET!, { expiresIn: '1m' });
-  const refreshToken = jwt.sign({ userId: userId }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '5m' });
+  const accessToken = jwt.sign({ userId: userId }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+  const refreshToken = jwt.sign({ userId: userId }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '5d' });
   return { accessToken, refreshToken };
 };
 
